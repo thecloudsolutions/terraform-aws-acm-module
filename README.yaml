@@ -1,0 +1,171 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# License
+license: "APACHE2"
+
+# GitHub repo name
+github_repo: terraform-aws-acm-module
+
+badges:
+  - name: "Release"
+    image: "https://img.shields.io/github/v/release/thecloudsolutions/terraform-aws-acm-module?style=for-the-badge&color=6150E8"
+    url: "https://github.com/thecloudsolutions/terraform-aws-acm-module/releases"
+  - name: "Commit"
+    image: "https://img.shields.io/github/last-commit/thecloudsolutions/terraform-aws-acm-module?style=for-the-badge&color=FF9800"
+    url: "https://github.com/thecloudsolutions/terraform-aws-acm-module/commits"
+  - name: "Issues"
+    image: "https://img.shields.io/github/issues/thecloudsolutions/terraform-aws-acm-module?style=for-the-badge&color=BB019E"
+    url: "https://github.com/thecloudsolutions/terraform-aws-acm-module/issues"
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/terraform-1.5.5-%20?style=for-the-badge&color=009FD2"
+    url: "https://github.com/hashicorp/terraform/blob/v1.5/CHANGELOG.md#155-august-9-2023"
+  - name: "License"
+    image: "https://img.shields.io/github/license/thecloudsolutions/terraform-aws-acm-module?style=for-the-badge&color=3FB950"
+    url: "https://github.com/thecloudsolutions/terraform-aws-acm-module/blob/main/LICENSE"
+
+description: |-
+  A Terraform module that provisions AWS Certificate Manager certificates with Route 53 DNS validation into a unified, easy-to-use interface.
+variable_naming: |-
+  In all Cloud Solutions **components** and **modules**, we intentionally use the _map suffix for input variables that accept map(object(...)).
+
+  For example:
+  ```hcl
+  variable "rds_map" {
+    type        = map(object({ ... }))
+    description = "Defines multiple RDS instances keyed by logical name."
+  }
+  ```
+  ⚠️ This is a deliberate deviation from [Terraform Style Guide](https://developer.hashicorp.com/terraform/language/syntax/style).
+  We fully acknowledge that this naming convention does not follow the Terraform style guide, which recommends naming variables based on what they represent, not how they're implemented. We understand this, and want to emphasize:
+  1. This is a deliberate, informed decision, not an oversight.
+  2. Our primary goal is clarity and consistency for developers using our modules.
+  3. The intent is to give users immediate understanding of what kind of structure they're supplying.
+
+  ✅ Why we made this decision (for our components and modules only)
+  This convention exists only within our components and modules structure. Here's why it works well for us:
+  1. Instant clarity for users - The _map suffix immediately signals that the variable supports multiple instances, each keyed by name. This avoids confusion around whether a variable is singular or plural.
+  2. Uniformity across all resources - Instead of struggling with awkward plurals (like kmses, rdses, vpcs, cloudfronts, account_managements) or inconsistent suffixes (_configs, _definitions, etc.), we use one simple, predictable pattern.
+  3. Avoids naming collisions - The _map suffix never conflicts with native Terraform or AWS resource types.
+  4. Future-proof for contributors - When contributors see _map, they can safely assume the structure is a map(object(...)) without checking variables.tf.
+
+  🙌 What this means for contributors
+  If you're contributing to Cloud Solutions components or modules, please:
+
+  1. Use the _map suffix when introducing a new map(object(...)) variable.
+  2. Follow the naming pattern consistently: rds_map, vpc_map, cloudfront_map, etc.
+  3. Don't apply this convention to Terraform projects outside components or modules - it's a local convention, not a global best practice.
+
+  If you have strong opinions or ideas for evolving this standard, you're welcome to open a discussion.
+
+usage: |-
+  ```hcl
+  module "terraform-aws-acm-module" {
+    source = "thecloudsolutions/terraform-aws-acm-module"
+    # Cloud Solutions recommends to pin every module to a specific version
+    # version = "x.x.x"
+
+    # Required variables
+    acm_map = {
+      key = <value>
+    }
+  }
+  ```
+
+  > [!IMPORTANT]
+  > In our examples we don't pin modules to specific versions to keep the documentation aligned with the latest releases.
+  > However, for your own projects, we recommend to pin each module to the exact version you're using. This approach helps maintain the stability of your infrastructure.
+  > Additionally, adopting a structured process for version updates will help prevent unexpected changes.
+quick_start: |-
+  The project is under active development, and we welcome all contributors! 🎉
+    
+  Before you start, please review our [Contributor Guidelines](https://github.com/thecloudsolutions/.github/blob/main/CONTRIBUTING.md) to understand the expectations and processes.
+    
+  Follow these steps to get started:
+    
+  ---
+    
+  ### 1. **Fork the Repository**
+  - Click the **"Fork"** button on the repository's GitHub page to create a copy under your GitHub account.
+
+  > [!TIP]
+  > If you're new to GitHub, check out the [GitHub Docs](https://docs.github.com/en/get-started) to familiarize yourself with key concepts like forking, branching, and pull requests.
+    
+  ### 2. **Clone the Fork**
+  - Clone your fork to your local machine using:
+    ```bash
+    git clone https://github.com/<your-username>/<repository-name>.git
+    ```
+    
+  ### 3. **Create a Branch**
+  - Create a new branch for your contribution:
+    ```bash
+    git checkout -b your-feature-name
+    ```
+    
+  ### 4. **Make Changes**
+  - Implement your changes in the codebase.
+  - Ensure you follow the project's style guide and standards.
+    
+  > [!WARNING]
+  > Always adhere to the project's coding standards and best practices outlined in the [CONTRIBUTING.md](https://github.com/thecloudsolutions/.github/blob/main/CONTRIBUTING.md) file.
+      
+  ### 5. **Test Your Changes**
+  - Run tests to verify your changes locally.
+  - Follow any project-specific testing instructions.
+      
+  ### 6. **Commit Your Changes**
+  - Stage and commit your changes with a clear and concise message:
+    ```bash
+    git add .
+    git commit -m "Add description of the change"
+    ```
+
+  > [!NOTE]
+  > Use meaningful commit messages in the present tense (e.g., "Add feature X" instead of "Added feature X").
+    
+  ### 7. **Push Your Branch**
+  - Push your branch to your fork:
+    ```bash
+    git push origin your-feature-name
+    ```
+      
+  ### 8. **Open a Pull Request (PR)**
+  - Navigate to the original repository and click the **"New Pull Request"** button.
+  - Select your branch and submit your PR following the [Pull Request template](https://github.com/thecloudsolutions/.github/blob/main/.github/PULL_REQUEST_TEMPLATE/pull_request_template.md).
+  - Use keywords like `Closes #123` to link your PR to a related issue.
+    
+  ### **🎉 Congratulations, you’ve made your first contribution! 🎉**  
+  We appreciate your effort and look forward to reviewing your work.
+
+blog: |-
+  Link to our [blog](https://thecloudsolutions.com/blog), where you can explore in-depth articles. Gain valuable insights and expert analysis on AWS cloud solution strategies and trends.
+
+about_us: |-
+  **Cloud Solutions: Innovating Open Source for AWS & DevOps**
+
+  Cloud Solutions creates and maintains free, open-source tools to help startups thrive in the AWS Cloud and DevOps space. Our mission is to make advanced technology accessible to businesses of all sizes.
+
+  With years of experience and a commitment to innovation, we design solutions that simplify workflows, encourage collaboration, and drive growth - removing cost barriers along the way. Every contribution brings us closer to a future where technology empowers all.
+
+  Your support makes everything we do possible.
+
+  Thank you for being part of our journey to empower innovation and build a stronger Open Source future!
+
+contributing: |-
+  The project is under active development, and we welcome all contributors! 🎉 
+
+  Before you start, please review our [Contributor Guidelines](CONTRIBUTING.md) to understand the expectations and processes.
+
+trademarks: |-
+  All other trademarks referenced herein are the property of their respective owners.
+
+copyrights: |-
+  Copyright © 2020-2026 [Cloud Solutions](https://thecloudsolutions.com)
+
+include:
+  - "docs/terraform.md"
+  - "docs/targets.md"
