@@ -1,0 +1,14 @@
+version: "0.21.0"
+formatter: markdown table
+sections:
+  hide: []
+  show:
+    - requirements
+    - inputs
+    - outputs
+    - modules
+settings:
+  indent: 0
+  escape: true
+sort:
+  enabled: false
